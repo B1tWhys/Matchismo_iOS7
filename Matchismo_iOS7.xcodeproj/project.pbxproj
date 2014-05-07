@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6319E6EF1916FB2100ADCFB0 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 6319E6EE1916FB2100ADCFB0 /* Card.m */; };
+		6319E6F31916FC9F00ADCFB0 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6319E6F21916FC9F00ADCFB0 /* PlayingCard.m */; };
 		D41FBDA21911B1A20027FC56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA11911B1A20027FC56 /* Foundation.framework */; };
 		D41FBDA41911B1A20027FC56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA31911B1A20027FC56 /* CoreGraphics.framework */; };
 		D41FBDA61911B1A20027FC56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA51911B1A20027FC56 /* UIKit.framework */; };
@@ -34,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6319E6ED1916FB2100ADCFB0 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		6319E6EE1916FB2100ADCFB0 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Card.m; path = /Users/david/Documents/Friends/Sky/GitHub/Matchismo_iOS7/Matchismo_iOS7/Card.m; sourceTree = "<absolute>"; };
+		6319E6F11916FC9F00ADCFB0 /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCard.h; path = Model/PlayingCard.h; sourceTree = "<group>"; };
+		6319E6F21916FC9F00ADCFB0 /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCard.m; path = Model/PlayingCard.m; sourceTree = "<group>"; };
 		D41FBD9E1911B1A20027FC56 /* Matchismo_iOS7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo_iOS7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41FBDA11911B1A20027FC56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D41FBDA31911B1A20027FC56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,6 +85,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6319E6F01916FB3D00ADCFB0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6319E6ED1916FB2100ADCFB0 /* Card.h */,
+				6319E6EE1916FB2100ADCFB0 /* Card.m */,
+				6319E6F11916FC9F00ADCFB0 /* PlayingCard.h */,
+				6319E6F21916FC9F00ADCFB0 /* PlayingCard.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D41FBD951911B1A20027FC56 = {
 			isa = PBXGroup;
 			children = (
@@ -112,9 +129,8 @@
 		D41FBDA71911B1A20027FC56 /* Matchismo_iOS7 */ = {
 			isa = PBXGroup;
 			children = (
-				D41FBDB01911B1A20027FC56 /* CardGameAppDelegate.h */,
-				D41FBDB11911B1A20027FC56 /* CardGameAppDelegate.m */,
 				D41FBDB31911B1A20027FC56 /* Main.storyboard */,
+				6319E6F01916FB3D00ADCFB0 /* Model */,
 				D41FBDB61911B1A20027FC56 /* CardGameViewController.h */,
 				D41FBDB71911B1A20027FC56 /* CardGameViewController.m */,
 				D41FBDB91911B1A20027FC56 /* Images.xcassets */,
@@ -126,6 +142,8 @@
 		D41FBDA81911B1A20027FC56 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D41FBDB01911B1A20027FC56 /* CardGameAppDelegate.h */,
+				D41FBDB11911B1A20027FC56 /* CardGameAppDelegate.m */,
 				D41FBDA91911B1A20027FC56 /* Matchismo_iOS7-Info.plist */,
 				D41FBDAA1911B1A20027FC56 /* InfoPlist.strings */,
 				D41FBDAD1911B1A20027FC56 /* main.m */,
@@ -253,6 +271,8 @@
 				D41FBDB21911B1A20027FC56 /* CardGameAppDelegate.m in Sources */,
 				D41FBDB81911B1A20027FC56 /* CardGameViewController.m in Sources */,
 				D41FBDAE1911B1A20027FC56 /* main.m in Sources */,
+				6319E6F31916FC9F00ADCFB0 /* PlayingCard.m in Sources */,
+				6319E6EF1916FB2100ADCFB0 /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +477,7 @@
 				D41FBDD21911B1A20027FC56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D41FBDD31911B1A20027FC56 /* Build configuration list for PBXNativeTarget "Matchismo_iOS7Tests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +486,7 @@
 				D41FBDD51911B1A20027FC56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
