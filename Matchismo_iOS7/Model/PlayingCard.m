@@ -40,6 +40,11 @@
              @"7", @"8", @"9", @"10", @"J", @"Q", @"K"];
 }
 
++ (NSUInteger *)maxRank
+{
+    return (NSUInteger *) [self.rankStrings count];
+}
+
 /*
 from leture 2 slides, slide 244:
  
