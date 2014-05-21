@@ -42,7 +42,7 @@
 
 + (NSUInteger *)maxRank
 {
-    return (NSUInteger *) [self.rankStrings count];
+    return (NSUInteger *) ([self.rankStrings count] - 1);
 }
 
 /*
