@@ -7,25 +7,38 @@
 //
 
 #import "CardGameViewController.h"
-#import "Deck.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) PlayingCardDeck *deck;
+@property (strong, nonatomic) Deck *deck; // NOTE 5/25 David changed this from PlayingCardDeck to get rid of the type error on line 32.
+@property (strong, nonatomic) CardMatchingGame *game;
 @end
 
 @implementation CardGameViewController
 
-- (PlayingCardDeck *)deck
+- (CardMatchingGame *)game
+{
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:0 usingDeck:[self createDeck]];
+    return _game;
+}
+
+- (Deck *)deck
 {
     if (!_deck) {
-        _deck = [[PlayingCardDeck alloc] init];
+        _deck = [self createDeck];
     }
     return _deck;
 }
+
+- (Deck *)createDeck
+{
+    return [[PlayingCardDeck alloc] init];
+}
+
 
 - (void)setFlipCount:(int)flipCount
 {
@@ -41,14 +54,12 @@
         [sender setTitle:@"" forState:UIControlStateNormal];
         self.flipCount++;
     } else {
-        PlayingCard *randomCard;
-        randomCard = (PlayingCard *)[self.deck drawRandomCard];
+        Card *randomCard;
+        randomCard = (Card *)[self.deck drawRandomCard];
         if (randomCard) {
-            NSString *cardText;
-            cardText = [NSString stringWithFormat:@"%@%@", randomCard.suit, [PlayingCard rankStrings][randomCard.rank]];
             [sender setBackgroundImage:[UIImage imageNamed:@"cardFront"]
                               forState:UIControlStateNormal];
-            [sender setTitle:cardText forState:UIControlStateNormal];
+            [sender setTitle:randomCard.contents forState:UIControlStateNormal];
             self.flipCount++;
         }
     }
