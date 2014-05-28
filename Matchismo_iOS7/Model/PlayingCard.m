@@ -22,9 +22,15 @@
         } else if ([otherCard.suit isEqualToString:self.suit]) {
             score = 1;
         }
+    } else if ([otherCards count] == 2) {
+        PlayingCard *otherCard = otherCards[0];
+        PlayingCard *otherCard2 = otherCards[1];
+        if ((otherCard.rank == self.rank) && (otherCard2.rank == self.rank)) {
+            score = 6;
+        } else if ([otherCard.suit isEqualToString:self.suit] && [otherCard2.suit isEqualToString:self.suit]) {
+            score = 3;
+        }
     }
-    
-    
     
     return score;
 }

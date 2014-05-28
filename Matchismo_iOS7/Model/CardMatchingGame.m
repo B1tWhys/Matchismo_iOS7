@@ -56,20 +56,44 @@ static const int COST_TO_CHOOSE = 1;
         if (card.isChosen) {
             card.chosen = NO;
         } else {
-            // match against other chosen cards
-            for (Card *otherCard in self.cards) {
-                if (otherCard.isChosen && !otherCard.isMatched) {
-                    int matchScore = [card match:@[otherCard]];
-                    if (matchScore) {
-                        self.score += matchScore * MATCH_BONUS;
-                        otherCard.matched = YES;
-                        card.matched = YES;
-                    } else {
-                        self.score -= MISMATCH_PENALTY;
-                        otherCard.chosen = NO;
+            if (self.numberOfCardsToMatch == 2) {
+                // match against another chosen cards
+                for (Card *otherCard in self.cards) {
+                    if (otherCard.isChosen && !otherCard.isMatched) {
+                        int matchScore = [card match:@[otherCard]];
+                        if (matchScore) {
+                            self.score += matchScore * MATCH_BONUS;
+                            otherCard.matched = YES;
+                            card.matched = YES;
+                        } else {
+                            self.score -= MISMATCH_PENALTY;
+                            otherCard.chosen = NO;
+                        }
+                        break; // can only choose 2 cards for now
                     }
-                    break; // can only choose 2 cards for now
                 }
+            } else if (self.numberOfCardsToMatch == 3) {
+                for (Card *otherCard in self.cards) {
+                    if (otherCard.isChosen && !otherCard.isMatched) {
+                        for (Card *otherCard2 in self.cards) {
+                            if (otherCard2.isChosen && !otherCard.isMatched && (otherCard2 != otherCard)) {
+                                int matchScore = [card match:@[otherCard, otherCard2]];
+                                if (matchScore) {
+                                    self.score += matchScore * MATCH_BONUS;
+                                    otherCard.matched = YES;
+                                    otherCard2.matched = YES;
+                                    card.matched = YES;
+                                } else {
+                                    self.score -= MISMATCH_PENALTY;
+                                    otherCard.chosen = NO;
+                                    otherCard2.chosen = NO;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                printf("numberOfCardsToMatch is invalid (not 2 or 3)");
             }
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
