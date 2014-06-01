@@ -11,28 +11,81 @@
 @implementation PlayingCard
 @synthesize suit = _suit;
 
-- (int)match:(NSArray *)otherCards
+//- (int)match:(NSArray *)otherCards
+//{
+//    int score = 0;
+//    
+//    if ([otherCards count] == 1) {
+//        PlayingCard *otherCard = [otherCards firstObject];
+//        if (otherCard.rank == self.rank) {
+//            score = 4;
+//        } else if ([otherCard.suit isEqualToString:self.suit]) {
+//            score = 1;
+//        }
+//    } else if ([otherCards count] == 2) {
+//        PlayingCard *otherCard = otherCards[0];
+//        PlayingCard *otherCard2 = otherCards[1];
+//        if ((otherCard.rank == self.rank) && (otherCard2.rank == self.rank)) {
+//            score = 6;
+//        } else if ([otherCard.suit isEqualToString:self.suit] && [otherCard2.suit isEqualToString:self.suit]) {
+//            score = 3;
+//        }
+//    }
+//    
+//    return score;
+//}
+
+- (int)match:(NSArray *)otherCards numberOfCardsToMatch:(int)numberOfCardsToMatch
 {
     int score = 0;
     
-    if ([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
+    if (numberOfCardsToMatch == 2) {
+        int matchCode = [self match2Cards:@[[otherCards firstObject], self]];
+        
+        if (matchCode == 3) { // matched rank
             score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+        } else if (matchCode == 1) { // matched suit
+            score = 2;
+        } else { // no match
+            score = 0;
         }
-    } else if ([otherCards count] == 2) {
-        PlayingCard *otherCard = otherCards[0];
-        PlayingCard *otherCard2 = otherCards[1];
-        if ((otherCard.rank == self.rank) && (otherCard2.rank == self.rank)) {
-            score = 6;
-        } else if ([otherCard.suit isEqualToString:self.suit] && [otherCard2.suit isEqualToString:self.suit]) {
+    } else if (numberOfCardsToMatch == 3 && ([otherCards count] == 2)) {
+        int matchResult = 0;
+        matchResult = [self match2Cards:@[otherCards[0], otherCards[1], self]];
+        matchResult += [self match2Cards:otherCards];
+        
+        if (matchResult == 6) { // both sets matched ranks
+            score = 10;
+        } else if (matchResult == 3) { // matched 1 set of ranks
             score = 3;
+        } else if (matchResult == 2) { // both sets matched suits
+            score = 6;
+        } else if (matchResult == 1) { // mathed 1 set of suits
+            score = 1;
+        } else { // no match
+            score = 0;
         }
     }
     
     return score;
+}
+
+- (int)match2Cards:(NSArray *)cardsToMatch
+{
+    PlayingCard *card1 = [cardsToMatch firstObject];
+    PlayingCard *card2 = [cardsToMatch lastObject];
+    
+    int resultCode = 0;
+    
+    if (card1.rank == card2.rank) {
+        resultCode = 3; // rank match
+    } else if ([card1.suit isEqualToString:card2.suit]) {
+        resultCode = 1; // suit match
+    } else {
+        resultCode = 0; // no match
+    }
+    
+    return resultCode;
 }
 
 - (NSString *)contents
@@ -68,11 +121,5 @@
 {
     return (NSUInteger *) ([self.rankStrings count] - 1);
 }
-
-/*
-from leture 2 slides, slide 244:
- 
- All the code doesnt't fit here, so use the other lecture slides to enter this code.
-*/
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation Card
 
-- (int)match:(NSArray *)otherCards
+- (int)match:(NSArray *)otherCards numberOfCardsToMatch:(int)numberOfCardsToMatch
 {
     int score = 0;
     

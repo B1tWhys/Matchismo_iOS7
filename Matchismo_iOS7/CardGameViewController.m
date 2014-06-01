@@ -16,6 +16,7 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (nonatomic) BOOL matchingNumberCanBeChanged;
 @end
 
 @implementation CardGameViewController
@@ -30,15 +31,23 @@
     return _game;
 }
 
+- (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
+{
+    self.match2Or3Selector.enabled = matchingNumberCanBeChanged;
+    _matchingNumberCanBeChanged = matchingNumberCanBeChanged;
+}
+
 - (IBAction)deal
 {
+    self.matchingNumberCanBeChanged = YES;
     self.game = nil;
     [self updateUI];
 }
 - (IBAction)changeGameMode:(UISegmentedControl *)sender
-{
-    [self deal];
-    self.game.numberOfCardsToMatch = sender.selectedSegmentIndex + 2;
+{   if (self.matchingNumberCanBeChanged) {
+        [self deal];
+        self.game.numberOfCardsToMatch = sender.selectedSegmentIndex + 2;
+    }
 }
 
 - (Deck *)createDeck
@@ -48,6 +57,7 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
+    self.matchingNumberCanBeChanged = NO;
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     if (self.match2Or3Selector.selectedSegmentIndex == 0) {
         self.game.numberOfCardsToMatch = 2;

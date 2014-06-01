@@ -60,7 +60,7 @@ static const int COST_TO_CHOOSE = 1;
                 // match against another chosen cards
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
-                        int matchScore = [card match:@[otherCard]];
+                        int matchScore = [card match:@[otherCard] numberOfCardsToMatch:self.numberOfCardsToMatch];
                         if (matchScore) {
                             self.score += matchScore * MATCH_BONUS;
                             otherCard.matched = YES;
@@ -77,7 +77,7 @@ static const int COST_TO_CHOOSE = 1;
                     if (otherCard.isChosen && !otherCard.isMatched) {
                         for (Card *otherCard2 in self.cards) {
                             if (otherCard2.isChosen && !otherCard.isMatched && (otherCard2 != otherCard)) {
-                                int matchScore = [card match:@[otherCard, otherCard2]];
+                                int matchScore = [card match:@[otherCard, otherCard2]numberOfCardsToMatch:self.numberOfCardsToMatch];
                                 if (matchScore) {
                                     self.score += matchScore * MATCH_BONUS;
                                     otherCard.matched = YES;
