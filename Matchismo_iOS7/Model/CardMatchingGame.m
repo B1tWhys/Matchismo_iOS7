@@ -76,7 +76,7 @@ static const int COST_TO_CHOOSE = 1;
                 for (Card *otherCard1 in self.cards) {
                     if (otherCard1.isChosen && !otherCard1.isMatched) {
                         for (Card *otherCard2 in self.cards) {
-                            if (otherCard2.isChosen && !otherCard1.isMatched && (otherCard2 != otherCard1)) {
+                            if (otherCard2.isChosen && !otherCard2.isMatched && (otherCard2 != otherCard1)) {
                                 int matchScore = [card match:@[otherCard1, otherCard2]];
                                 if (matchScore) {
                                     self.score += matchScore * MATCH_BONUS;
