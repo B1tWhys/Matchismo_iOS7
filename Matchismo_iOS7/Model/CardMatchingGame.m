@@ -60,7 +60,7 @@ static const int COST_TO_CHOOSE = 1;
                 // match against another chosen cards
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
-                        int matchScore = [card match:@[otherCard] numberOfCardsToMatch:self.numberOfCardsToMatch];
+                        int matchScore = [card match:@[otherCard]];
                         if (matchScore) {
                             self.score += matchScore * MATCH_BONUS;
                             otherCard.matched = YES;
@@ -73,20 +73,21 @@ static const int COST_TO_CHOOSE = 1;
                     }
                 }
             } else if (self.numberOfCardsToMatch == 3) {
-                for (Card *otherCard in self.cards) {
-                    if (otherCard.isChosen && !otherCard.isMatched) {
+                for (Card *otherCard1 in self.cards) {
+                    if (otherCard1.isChosen && !otherCard1.isMatched) {
                         for (Card *otherCard2 in self.cards) {
-                            if (otherCard2.isChosen && !otherCard.isMatched && (otherCard2 != otherCard)) {
-                                int matchScore = [card match:@[otherCard, otherCard2]numberOfCardsToMatch:self.numberOfCardsToMatch];
+                            if (otherCard2.isChosen && !otherCard1.isMatched && (otherCard2 != otherCard1)) {
+                                int matchScore = [card match:@[otherCard1, otherCard2]];
                                 if (matchScore) {
                                     self.score += matchScore * MATCH_BONUS;
-                                    otherCard.matched = YES;
+                                    otherCard1.matched = YES;
                                     otherCard2.matched = YES;
                                     card.matched = YES;
                                 } else {
                                     self.score -= MISMATCH_PENALTY;
-                                    otherCard.chosen = NO;
+                                    otherCard1.chosen = NO;
                                     otherCard2.chosen = NO;
+                                    card.chosen = NO; // Adding this on 6/1/14 did not solve the problem.
                                 }
                             }
                         }

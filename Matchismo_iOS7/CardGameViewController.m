@@ -33,8 +33,9 @@
 
 - (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
 {
-    self.match2Or3Selector.enabled = matchingNumberCanBeChanged;
     _matchingNumberCanBeChanged = matchingNumberCanBeChanged;
+    
+    self.match2Or3Selector.enabled = matchingNumberCanBeChanged;
 }
 
 - (IBAction)deal
@@ -43,6 +44,7 @@
     self.game = nil;
     [self updateUI];
 }
+
 - (IBAction)changeGameMode:(UISegmentedControl *)sender
 {   if (self.matchingNumberCanBeChanged) {
         [self deal];
