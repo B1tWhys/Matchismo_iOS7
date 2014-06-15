@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (nonatomic) BOOL matchingNumberCanBeChanged;
+@property (strong, nonatomic) IBOutlet UILabel *eventDisplayLabel;
 @end
 
 @implementation CardGameViewController
@@ -80,11 +81,43 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
+    if (self.game.currentMatch.count == (self.match2Or3Selector.selectedSegmentIndex + 2)) {
+        self.eventDisplayLabel.text = [self generateEventDisplayText];
+    } else {
+        self.eventDisplayLabel.text = @"Pick another card";
+    }
 }
 
 - (NSString *)titleForCard:(Card *)card
 {
     return card.isChosen ? card.contents : @"";
+}
+
+- (void)resetCurrentMatch
+{
+    self.game.currentMatch = [[NSArray alloc] init];
+}
+
+- (NSString *)generateEventDisplayText {
+    NSString *outputText;
+    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
+        if (self.game.wasMatch) {
+            outputText = [NSString stringWithFormat:@"%@ and %@ match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            [self resetCurrentMatch];
+        } else {
+            outputText = [NSString stringWithFormat:@"%@ and %@ don't match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            [self resetCurrentMatch];
+        }
+    } else {
+        if (self.game.wasMatch) {
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            [self resetCurrentMatch];
+        } else {
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ don't match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            [self resetCurrentMatch];
+        }
+    }
+    return outputText;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card

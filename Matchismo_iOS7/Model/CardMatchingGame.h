@@ -19,5 +19,6 @@
 
 @property (nonatomic) int numberOfCardsToMatch;
 @property (nonatomic, readonly) NSInteger score;
-
+@property (nonatomic) NSArray *currentMatch;
+@property (nonatomic, readonly) BOOL wasMatch;
 @end

@@ -10,6 +10,7 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
+@property (nonatomic, readwrite) BOOL wasMatch;
 @end
 
 @implementation CardMatchingGame
@@ -61,15 +62,18 @@ static const int COST_TO_CHOOSE = 1;
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
                         int matchScore = [card match:@[otherCard]];
+                        self.currentMatch = @[card, otherCard];
                         if (matchScore) {
+                            self.wasMatch = YES;
                             self.score += matchScore * MATCH_BONUS;
                             otherCard.matched = YES;
                             card.matched = YES;
                         } else {
+                            self.wasMatch = NO;
                             self.score -= MISMATCH_PENALTY;
                             otherCard.chosen = NO;
                         }
-                        break; // can only choose 2 cards for now
+                        break;
                     }
                 }
             } else if (self.numberOfCardsToMatch == 3) {
@@ -78,16 +82,19 @@ static const int COST_TO_CHOOSE = 1;
                         for (Card *otherCard2 in self.cards) {
                             if (otherCard2.isChosen && !otherCard2.isMatched && (otherCard2 != otherCard1)) {
                                 int matchScore = [card match:@[otherCard1, otherCard2]];
+                                self.currentMatch = @[card, otherCard1, otherCard2];
                                 if (matchScore) {
+                                    self.wasMatch = YES;
                                     self.score += matchScore * MATCH_BONUS;
                                     otherCard1.matched = YES;
                                     otherCard2.matched = YES;
                                     card.matched = YES;
                                 } else {
+                                    self.wasMatch = NO;
                                     self.score -= MISMATCH_PENALTY;
                                     otherCard1.chosen = NO;
                                     otherCard2.chosen = NO;
-                                    card.chosen = NO; // Adding this on 6/1/14 did not solve the problem.
+                                    card.chosen = NO;
                                 }
                             }
                         }
