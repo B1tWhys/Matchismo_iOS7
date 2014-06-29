@@ -84,7 +84,7 @@
     if (self.game.currentMatch.count == (self.match2Or3Selector.selectedSegmentIndex + 2)) {
         self.eventDisplayLabel.text = [self generateEventDisplayText];
     } else {
-        self.eventDisplayLabel.text = @"Pick another card";
+        self.eventDisplayLabel.text = @"Pick another card.";
     }
 }
 
@@ -102,18 +102,18 @@
     NSString *outputText;
     if (self.match2Or3Selector.selectedSegmentIndex == 0) {
         if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@ and %@ match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            outputText = [NSString stringWithFormat:@"%@ and %@ match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
             [self resetCurrentMatch];
         } else {
-            outputText = [NSString stringWithFormat:@"%@ and %@ don't match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            outputText = [NSString stringWithFormat:@"%@ and %@ don't match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
             [self resetCurrentMatch];
         }
     } else {
         if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
             [self resetCurrentMatch];
         } else {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ don't match", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ don't match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
             [self resetCurrentMatch];
         }
     }
