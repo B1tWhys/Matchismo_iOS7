@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (nonatomic) BOOL matchingNumberCanBeChanged;
 @property (strong, nonatomic) IBOutlet UILabel *eventDisplayLabel;
+
 @end
 
 @implementation CardGameViewController
@@ -102,21 +103,22 @@
     NSString *outputText;
     if (self.match2Or3Selector.selectedSegmentIndex == 0) {
         if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@ and %@ match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            outputText = [NSString stringWithFormat:@"%@ and %@ match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
             [self resetCurrentMatch];
         } else {
-            outputText = [NSString stringWithFormat:@"%@ and %@ don't match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents];
+            outputText = [NSString stringWithFormat:@"%@ and %@ don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
             [self resetCurrentMatch];
         }
     } else {
         if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
             [self resetCurrentMatch];
         } else {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ don't match.", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents];
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
             [self resetCurrentMatch];
         }
     }
+    
     return outputText;
 }
 

@@ -11,6 +11,7 @@
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
 @property (nonatomic, readwrite) BOOL wasMatch;
+@property (nonatomic, readwrite) int deltaScore;
 @end
 
 @implementation CardMatchingGame
@@ -57,6 +58,8 @@ static const int COST_TO_CHOOSE = 1;
         if (card.isChosen) {
             card.chosen = NO;
         } else {
+            self.deltaScore = 0; // reset deltaScore
+            
             if (self.numberOfCardsToMatch == 2) {
                 // match against another chosen cards
                 for (Card *otherCard in self.cards) {
@@ -65,12 +68,12 @@ static const int COST_TO_CHOOSE = 1;
                         self.currentMatch = @[card, otherCard];
                         if (matchScore) {
                             self.wasMatch = YES;
-                            self.score += matchScore * MATCH_BONUS;
+                            self.deltaScore += matchScore * MATCH_BONUS;
                             otherCard.matched = YES;
                             card.matched = YES;
                         } else {
                             self.wasMatch = NO;
-                            self.score -= MISMATCH_PENALTY;
+                            self.deltaScore -= MISMATCH_PENALTY;
                             otherCard.chosen = NO;
                         }
                         break;
@@ -85,13 +88,13 @@ static const int COST_TO_CHOOSE = 1;
                                 self.currentMatch = @[card, otherCard1, otherCard2];
                                 if (matchScore) {
                                     self.wasMatch = YES;
-                                    self.score += matchScore * MATCH_BONUS;
+                                    self.deltaScore += matchScore * MATCH_BONUS;
                                     otherCard1.matched = YES;
                                     otherCard2.matched = YES;
                                     card.matched = YES;
                                 } else {
                                     self.wasMatch = NO;
-                                    self.score -= MISMATCH_PENALTY;
+                                    self.deltaScore -= MISMATCH_PENALTY;
                                     otherCard1.chosen = NO;
                                     otherCard2.chosen = NO;
                                     card.chosen = NO;
@@ -103,7 +106,11 @@ static const int COST_TO_CHOOSE = 1;
             } else {
                 printf("numberOfCardsToMatch is invalid (not 2 or 3)");
             }
-            self.score -= COST_TO_CHOOSE;
+            if (self.deltaScore != 0) {
+                // match just happened
+            }
+            self.deltaScore -= COST_TO_CHOOSE;
+            self.score += self.deltaScore;
             card.chosen = YES;
         }
     }

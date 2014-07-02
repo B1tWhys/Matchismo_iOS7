@@ -21,4 +21,5 @@
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic) NSArray *currentMatch;
 @property (nonatomic, readonly) BOOL wasMatch;
+@property (nonatomic, readonly) int deltaScore;
 @end
