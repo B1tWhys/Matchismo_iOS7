@@ -15,17 +15,27 @@
 
 @implementation ScoreHistoryViewController
 
+- (NSMutableArray *)labelHistoryArray
+{
+    if (!_labelHistoryArray) {
+        _labelHistoryArray = [[NSMutableArray alloc] init];
+    }
+
+    return _labelHistoryArray;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.historyDisplay.editable = NO;
-    NSMutableString *textToDisplay;
+    NSMutableString *textToDisplay = [[NSMutableString alloc] init];
     for (NSString *label in self.labelHistoryArray) {
         [textToDisplay appendString:label];
+        [textToDisplay appendString:[NSString stringWithFormat:@"\n"]];
     }
 
     self.historyDisplay.text = (NSString *)textToDisplay;
-//    self.historyDisplay.text = @"test text";
 }
 
 /*

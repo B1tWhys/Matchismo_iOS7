@@ -10,6 +10,15 @@
 #import "Deck.h"
 #import "Card.h"
 
+/* An idea ala David for caching match objects instead of a descriptive string.
+struct matchData {
+    bool wasMatch;
+    int numberOfCardsToMatch;
+    NSString *contents1;
+    NSString *contents2;
+};
+*/
+
 @interface CardMatchingGame : NSObject
 // designated initilizer
 - (instancetype)initWithCardCount:(NSUInteger)count

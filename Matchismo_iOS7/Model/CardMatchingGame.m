@@ -47,6 +47,7 @@
     self = [super init];
     
     if (self) {
+        _matchCache = [[NSMutableArray alloc] init];
         for (int i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {
@@ -128,10 +129,13 @@ static const int COST_TO_CHOOSE = 1;
                 printf("numberOfCardsToMatch is invalid (not 2 or 3)");
             }
             if (self.deltaScore != 0) {
+                self.deltaScore -= COST_TO_CHOOSE;
                 NSString *eventDisplayText = [self generateEventDisplayText];
                 [self.matchCache addObject:eventDisplayText];
+            } else {
+                self.deltaScore -= COST_TO_CHOOSE;
             }
-            self.deltaScore -= COST_TO_CHOOSE;
+            
             self.score += self.deltaScore;
             card.chosen = YES;
         }
