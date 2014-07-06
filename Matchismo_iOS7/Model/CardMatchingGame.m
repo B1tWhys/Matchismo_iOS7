@@ -7,11 +7,13 @@
 //
 
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
 @property (nonatomic, readwrite) BOOL wasMatch;
 @property (nonatomic, readwrite) int deltaScore;
+@property (nonatomic, readwrite) NSMutableArray *matchCache;
 @end
 
 @implementation CardMatchingGame
@@ -19,6 +21,25 @@
 {
     if (!_cards) _cards = [[NSMutableArray alloc] init];
     return _cards;
+}
+
+- (NSString *)generateEventDisplayText {
+    NSString *outputText;
+    if (self.numberOfCardsToMatch == 2) {
+        if (self.wasMatch) {
+            outputText = [NSString stringWithFormat:@"%@ and %@ match. (+%i points)", ((PlayingCard *)(self.currentMatch[0])).contents, ((PlayingCard *)(self.currentMatch[1])).contents, self.deltaScore];
+        } else {
+            outputText = [NSString stringWithFormat:@"%@ and %@ don't match. (%i points)", ((PlayingCard *)(self.currentMatch[0])).contents, ((PlayingCard *)(self.currentMatch[1])).contents, self.deltaScore];
+        }
+    } else {
+        if (self.wasMatch) {
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a match. (+%i points)", ((PlayingCard *)(self.currentMatch[0])).contents, ((PlayingCard *)(self.currentMatch[1])).contents, ((PlayingCard *)(self.currentMatch[2])).contents, self.deltaScore];
+        } else {
+            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a don't match. (%i points)", ((PlayingCard *)(self.currentMatch[0])).contents, ((PlayingCard *)(self.currentMatch[1])).contents, ((PlayingCard *)(self.currentMatch[2])).contents, self.deltaScore];
+        }
+    }
+    
+    return outputText;
 }
 
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
@@ -107,7 +128,7 @@ static const int COST_TO_CHOOSE = 1;
                 printf("numberOfCardsToMatch is invalid (not 2 or 3)");
             }
             if (self.deltaScore != 0) {
-                // match just happened
+                [self.matchCache addObject:[self generateEventDisplayText]];
             }
             self.deltaScore -= COST_TO_CHOOSE;
             self.score += self.deltaScore;

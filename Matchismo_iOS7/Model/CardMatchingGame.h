@@ -16,10 +16,12 @@
                        usingDeck:(Deck *)deck;
 - (void)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
+- (NSString *)generateEventDisplayText;
 
 @property (nonatomic) int numberOfCardsToMatch;
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic) NSArray *currentMatch;
 @property (nonatomic, readonly) BOOL wasMatch;
 @property (nonatomic, readonly) int deltaScore;
+@property (nonatomic, readonly) NSMutableArray *matchCache;
 @end

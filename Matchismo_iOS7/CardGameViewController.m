@@ -83,7 +83,8 @@
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
     if (self.game.currentMatch.count == (self.match2Or3Selector.selectedSegmentIndex + 2)) {
-        self.eventDisplayLabel.text = [self generateEventDisplayText];
+        self.eventDisplayLabel.text = [self.game generateEventDisplayText];
+        [self resetCurrentMatch];
     } else {
         self.eventDisplayLabel.text = @"Pick another card.";
     }
@@ -99,28 +100,28 @@
     self.game.currentMatch = [[NSArray alloc] init];
 }
 
-- (NSString *)generateEventDisplayText {
-    NSString *outputText;
-    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
-        if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@ and %@ match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
-            [self resetCurrentMatch];
-        } else {
-            outputText = [NSString stringWithFormat:@"%@ and %@ don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
-            [self resetCurrentMatch];
-        }
-    } else {
-        if (self.game.wasMatch) {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
-            [self resetCurrentMatch];
-        } else {
-            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
-            [self resetCurrentMatch];
-        }
-    }
-    
-    return outputText;
-}
+//- (NSString *)generateEventDisplayText {
+//    NSString *outputText;
+//    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
+//        if (self.game.wasMatch) {
+//            outputText = [NSString stringWithFormat:@"%@ and %@ match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
+//            [self resetCurrentMatch];
+//        } else {
+//            outputText = [NSString stringWithFormat:@"%@ and %@ don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
+//            [self resetCurrentMatch];
+//        }
+//    } else {
+//        if (self.game.wasMatch) {
+//            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
+//            [self resetCurrentMatch];
+//        } else {
+//            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
+//            [self resetCurrentMatch];
+//        }
+//    }
+//    
+//    return outputText;
+//}
 
 - (UIImage *)backgroundImageForCard:(Card *)card
 {
