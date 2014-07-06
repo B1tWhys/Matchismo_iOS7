@@ -10,6 +10,7 @@
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
+#import "ScoreHistoryViewController.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -22,6 +23,12 @@
 @end
 
 @implementation CardGameViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ScoreHistoryViewController *destinationViewController = segue.destinationViewController;
+    
+    destinationViewController.labelHistoryArray = self.game.matchCache;
+}
 
 - (CardMatchingGame *)game
 {
@@ -89,6 +96,8 @@
         self.eventDisplayLabel.text = @"Pick another card.";
     }
 }
+
+
 
 - (NSString *)titleForCard:(Card *)card
 {

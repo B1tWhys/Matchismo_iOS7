@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *cards; // of Cards
 @property (nonatomic, readwrite) BOOL wasMatch;
 @property (nonatomic, readwrite) int deltaScore;
-@property (nonatomic, readwrite) NSMutableArray *matchCache;
+@property (nonatomic, strong, readwrite) NSMutableArray *matchCache;
 @end
 
 @implementation CardMatchingGame
@@ -128,7 +128,8 @@ static const int COST_TO_CHOOSE = 1;
                 printf("numberOfCardsToMatch is invalid (not 2 or 3)");
             }
             if (self.deltaScore != 0) {
-                [self.matchCache addObject:[self generateEventDisplayText]];
+                NSString *eventDisplayText = [self generateEventDisplayText];
+                [self.matchCache addObject:eventDisplayText];
             }
             self.deltaScore -= COST_TO_CHOOSE;
             self.score += self.deltaScore;

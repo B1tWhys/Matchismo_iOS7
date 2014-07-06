@@ -9,30 +9,23 @@
 #import "ScoreHistoryViewController.h"
 
 @interface ScoreHistoryViewController ()
+@property (strong, nonatomic) IBOutlet UITextView *historyDisplay;
 
 @end
 
 @implementation ScoreHistoryViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
+    self.historyDisplay.editable = NO;
+    NSMutableString *textToDisplay;
+    for (NSString *label in self.labelHistoryArray) {
+        [textToDisplay appendString:label];
+    }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.historyDisplay.text = (NSString *)textToDisplay;
+//    self.historyDisplay.text = @"test text";
 }
 
 /*

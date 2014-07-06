@@ -23,5 +23,5 @@
 @property (nonatomic) NSArray *currentMatch;
 @property (nonatomic, readonly) BOOL wasMatch;
 @property (nonatomic, readonly) int deltaScore;
-@property (nonatomic, readonly) NSMutableArray *matchCache;
+@property (nonatomic, strong, readonly) NSMutableArray *matchCache;
 @end
