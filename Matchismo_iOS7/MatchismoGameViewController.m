@@ -7,11 +7,87 @@
 //
 
 #import "MatchismoGameViewController.h"
+#import "PlayingCard.h"
+#import "CardMatchingGame.h"
+#import "PlayingCard.h"
+#import "PlayingCardDeck.h"
 
 @interface MatchismoCardGameViewController ()
+@property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
+@property (nonatomic) BOOL matchingNumberCanBeChanged;
 
 @end
 
 @implementation MatchismoCardGameViewController
+- (CardMatchingGame *)game
+{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+        _game.numberOfCardsToMatch = 2;
+    }
+    
+    return _game;
+}
 
+- (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
+{
+    _matchingNumberCanBeChanged = matchingNumberCanBeChanged;
+    
+    self.match2Or3Selector.enabled = matchingNumberCanBeChanged;
+}
+
+- (IBAction)deal
+{
+    self.matchingNumberCanBeChanged = YES;
+    self.game = nil;
+    [self updateUI];
+}
+
+- (IBAction)changeGameMode:(UISegmentedControl *)sender
+{   if (self.matchingNumberCanBeChanged) {
+    [self deal];
+    self.game.numberOfCardsToMatch = sender.selectedSegmentIndex + 2;
+}
+}
+
+- (Deck *)createDeck
+{
+    return [[PlayingCardDeck alloc] init];
+}
+
+- (IBAction)touchCardButton:(UIButton *)sender
+{
+    self.matchingNumberCanBeChanged = NO;
+    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
+        self.game.numberOfCardsToMatch = 2;
+    } else {
+        self.game.numberOfCardsToMatch = 3;
+    }
+    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self updateUI];
+}
+
+- (NSString *)titleForCard:(Card *)card
+{
+    return card.isChosen ? card.contents : @"";
+}
+
+- (void)updateUI
+{
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardButtonIndex];
+        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+        cardButton.enabled = !card.isMatched;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    }
+    if (self.game.currentMatch.count == (self.match2Or3Selector.selectedSegmentIndex + 2)) {
+        self.eventDisplayLabel.text = [self.game generateEventDisplayText];
+        [self resetCurrentMatch];
+    } else {
+        self.eventDisplayLabel.text = @"Pick another card.";
+    }
+}
 @end

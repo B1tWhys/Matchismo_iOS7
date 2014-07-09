@@ -6,127 +6,36 @@
 //  Copyright (c) 2014 Skyler and David inc. All rights reserved.
 //
 
-#import "CardGameViewController.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 #import "ScoreHistoryViewController.h"
+#import "CardGameViewController.h"
+
 
 @interface CardGameViewController ()
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
-@property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (nonatomic) BOOL matchingNumberCanBeChanged;
-@property (strong, nonatomic) IBOutlet UILabel *eventDisplayLabel;
 
 @end
 
 @implementation CardGameViewController
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ScoreHistoryViewController *destinationViewController = segue.destinationViewController;
     
     destinationViewController.labelHistoryArray = self.game.matchCache;
 }
 
-- (CardMatchingGame *)game
-{
-    if (!_game) {
-       _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-        _game.numberOfCardsToMatch = 2;
-    }
-    
-    return _game;
-}
 
-- (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
-{
-    _matchingNumberCanBeChanged = matchingNumberCanBeChanged;
-    
-    self.match2Or3Selector.enabled = matchingNumberCanBeChanged;
-}
-
-- (IBAction)deal
-{
-    self.matchingNumberCanBeChanged = YES;
-    self.game = nil;
-    [self updateUI];
-}
-
-- (IBAction)changeGameMode:(UISegmentedControl *)sender
-{   if (self.matchingNumberCanBeChanged) {
-        [self deal];
-        self.game.numberOfCardsToMatch = sender.selectedSegmentIndex + 2;
-    }
-}
-
-- (Deck *)createDeck
-{
-    return [[PlayingCardDeck alloc] init];
-}
-
-- (IBAction)touchCardButton:(UIButton *)sender
-{
-    self.matchingNumberCanBeChanged = NO;
-    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
-        self.game.numberOfCardsToMatch = 2;
-    } else {
-        self.game.numberOfCardsToMatch = 3;
-    }
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
-}
 
 - (void)updateUI
 {
-}
-
-
-
-- (NSString *)titleForCard:(Card *)card
-{
-    return card.isChosen ? card.contents : @"";
+    printf("ERROR: updateUI called in class CardGameViewController");
 }
 
 - (void)resetCurrentMatch
 {
     self.game.currentMatch = [[NSArray alloc] init];
 }
-
-//- (NSString *)generateEventDisplayText {
-//    NSString *outputText;
-//    if (self.match2Or3Selector.selectedSegmentIndex == 0) {
-//        if (self.game.wasMatch) {
-//            outputText = [NSString stringWithFormat:@"%@ and %@ match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
-//            [self resetCurrentMatch];
-//        } else {
-//            outputText = [NSString stringWithFormat:@"%@ and %@ don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, self.game.deltaScore];
-//            [self resetCurrentMatch];
-//        }
-//    } else {
-//        if (self.game.wasMatch) {
-//            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a match. (+%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
-//            [self resetCurrentMatch];
-//        } else {
-//            outputText = [NSString stringWithFormat:@"%@, %@ and %@ constitute a don't match. (%i points)", ((PlayingCard *)(self.game.currentMatch[0])).contents, ((PlayingCard *)(self.game.currentMatch[1])).contents, ((PlayingCard *)(self.game.currentMatch[2])).contents, self.game.deltaScore];
-//            [self resetCurrentMatch];
-//        }
-//    }
-//    
-//    return outputText;
-//}
 
 - (UIImage *)backgroundImageForCard:(Card *)card
 {

@@ -8,6 +8,7 @@
 
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
+// this class could also be named MatchismoCardDeck should this name prove to be too confusing.
 
 @implementation PlayingCardDeck
 

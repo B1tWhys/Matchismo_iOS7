@@ -10,7 +10,7 @@
 #import "Deck.h"
 #import "Card.h"
 
-/* An idea ala David for caching match objects instead of a descriptive string.
+/* An idea ala David for caching match objects instead of a descriptive 00string.
 struct matchData {
     bool wasMatch;
     int numberOfCardsToMatch;
