@@ -12,6 +12,9 @@
 		6397E4B219203514008895B9 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397E4B119203514008895B9 /* Card.m */; };
 		6397E4B51920354F008895B9 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397E4B41920354F008895B9 /* Deck.m */; };
 		6397E4B819203899008895B9 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 6397E4B719203899008895B9 /* PlayingCardDeck.m */; };
+		D413F2C9196D3DAE00966FC1 /* MatchismoGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413F2C8196D3DAE00966FC1 /* MatchismoGameViewController.m */; };
+		D413F2CC196D3E2400966FC1 /* SetGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413F2CB196D3E2400966FC1 /* SetGameViewController.m */; };
+		D413F2CF196D3EBA00966FC1 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D413F2CE196D3EBA00966FC1 /* Match.m */; };
 		D41FBDA21911B1A20027FC56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA11911B1A20027FC56 /* Foundation.framework */; };
 		D41FBDA41911B1A20027FC56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA31911B1A20027FC56 /* CoreGraphics.framework */; };
 		D41FBDA61911B1A20027FC56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D41FBDA51911B1A20027FC56 /* UIKit.framework */; };
@@ -50,6 +53,12 @@
 		6397E4B41920354F008895B9 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
 		6397E4B619203899008895B9 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
 		6397E4B719203899008895B9 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
+		D413F2C7196D3DAE00966FC1 /* MatchismoGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchismoGameViewController.h; sourceTree = "<group>"; };
+		D413F2C8196D3DAE00966FC1 /* MatchismoGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchismoGameViewController.m; sourceTree = "<group>"; };
+		D413F2CA196D3E2400966FC1 /* SetGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetGameViewController.h; sourceTree = "<group>"; };
+		D413F2CB196D3E2400966FC1 /* SetGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetGameViewController.m; sourceTree = "<group>"; };
+		D413F2CD196D3EBA00966FC1 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Match.h; path = Model/Match.h; sourceTree = "<group>"; };
+		D413F2CE196D3EBA00966FC1 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Match.m; path = Model/Match.m; sourceTree = "<group>"; };
 		D41FBD9E1911B1A20027FC56 /* Matchismo_iOS7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo_iOS7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41FBDA11911B1A20027FC56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D41FBDA31911B1A20027FC56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +119,8 @@
 				6397E4B119203514008895B9 /* Card.m */,
 				6319E6F11916FC9F00ADCFB0 /* PlayingCard.h */,
 				6319E6F21916FC9F00ADCFB0 /* PlayingCard.m */,
+				D413F2CD196D3EBA00966FC1 /* Match.h */,
+				D413F2CE196D3EBA00966FC1 /* Match.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -151,6 +162,10 @@
 				6319E6F01916FB3D00ADCFB0 /* Model */,
 				D41FBDB61911B1A20027FC56 /* CardGameViewController.h */,
 				D41FBDB71911B1A20027FC56 /* CardGameViewController.m */,
+				D413F2C7196D3DAE00966FC1 /* MatchismoGameViewController.h */,
+				D413F2C8196D3DAE00966FC1 /* MatchismoGameViewController.m */,
+				D413F2CA196D3E2400966FC1 /* SetGameViewController.h */,
+				D413F2CB196D3E2400966FC1 /* SetGameViewController.m */,
 				D4FA32D11969CCCC00B94316 /* ScoreHistoryViewController.h */,
 				D4FA32D01969CCCC00B94316 /* ScoreHistoryViewController.m */,
 				D41FBDB91911B1A20027FC56 /* Images.xcassets */,
@@ -288,7 +303,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D413F2CC196D3E2400966FC1 /* SetGameViewController.m in Sources */,
+				D413F2C9196D3DAE00966FC1 /* MatchismoGameViewController.m in Sources */,
 				6397E4B219203514008895B9 /* Card.m in Sources */,
+				D413F2CF196D3EBA00966FC1 /* Match.m in Sources */,
 				D41FBDB21911B1A20027FC56 /* CardGameAppDelegate.m in Sources */,
 				D41FBDB81911B1A20027FC56 /* CardGameViewController.m in Sources */,
 				D41FBDAE1911B1A20027FC56 /* main.m in Sources */,

@@ -91,20 +91,6 @@
 
 - (void)updateUI
 {
-    for (UIButton *cardButton in self.cardButtons) {
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    }
-    if (self.game.currentMatch.count == (self.match2Or3Selector.selectedSegmentIndex + 2)) {
-        self.eventDisplayLabel.text = [self.game generateEventDisplayText];
-        [self resetCurrentMatch];
-    } else {
-        self.eventDisplayLabel.text = @"Pick another card.";
-    }
 }
 
 

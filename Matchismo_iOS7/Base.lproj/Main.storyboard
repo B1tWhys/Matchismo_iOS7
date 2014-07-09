@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2TW-nC-p3G">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2TW-nC-p3G">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -39,10 +39,10 @@
             </objects>
             <point key="canvasLocation" x="-1220" y="-242"/>
         </scene>
-        <!--Card Game View Controller - Matchismo-->
+        <!--Matchismo Card Game View Controller - Matchismo-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="CardGameViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="MatchismoCardGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -486,10 +486,10 @@
             </objects>
             <point key="canvasLocation" x="-171" y="-524"/>
         </scene>
-        <!--Card Game View Controller - Set to Be-->
+        <!--Set Game View Controller - Set to Be-->
         <scene sceneID="89P-uV-bm2">
             <objects>
-                <viewController id="m6R-j4-LhC" customClass="CardGameViewController" sceneMemberID="viewController">
+                <viewController id="m6R-j4-LhC" customClass="SetGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jhi-0X-fSd"/>
                         <viewControllerLayoutGuide type="bottom" id="trf-Bz-pex"/>
