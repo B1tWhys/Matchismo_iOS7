@@ -25,8 +25,6 @@
     destinationViewController.labelHistoryArray = self.game.matchCache;
 }
 
-
-
 - (void)updateUI
 {
     printf("ERROR: updateUI called in class CardGameViewController");
@@ -35,11 +33,6 @@
 - (void)resetCurrentMatch
 {
     self.game.currentMatch = [[NSArray alloc] init];
-}
-
-- (UIImage *)backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:card.isChosen ? @"cardFront" : @"cardBack"];
 }
 
 @end

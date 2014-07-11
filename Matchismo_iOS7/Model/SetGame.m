@@ -43,7 +43,7 @@
     
     return (numberMatch | shapeMatch | colorMatch | fillMatch);
 }
-`
+
 static const int SELECT_COST = 1;
 static const int MATCH_SCORE = 5;
 static const int MATCH_BONUS_MULTIPLIER = 4; // N/A right now
@@ -68,7 +68,7 @@ static const int MISMATCH_PENALTY = 2;
             if ([self isMatch]) {
                 self.totalScore += MATCH_SCORE;
                 self.scoreOnLastSelection = MATCH_SCORE;
-                for (Card *selectedCard in self.currentlySelectedCards) {
+                for (SetCard *selectedCard in self.currentlySelectedCards) {
                     selectedCard.playable = false;
                 }
             } else { // there is no match
@@ -81,4 +81,6 @@ static const int MISMATCH_PENALTY = 2;
         } // else do nothing
         
     } 	// else do nothing
+}
+
 @end

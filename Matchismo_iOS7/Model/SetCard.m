@@ -21,11 +21,13 @@ static int logCardCount;
 
 -(id)init
 {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.count = 0;
         self.shape = 0;
         self.fill = 0;
         self.color = 0;
+        self.playable = YES;
     }
     return self;
 }

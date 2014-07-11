@@ -1,5 +1,5 @@
 //
-//  MatchismoCardGameViewController.m
+//  MatchismoGameViewController.m
 //  Matchismo_iOS7
 //
 //  Created by Sky Arnold on 7/9/14.
@@ -8,25 +8,33 @@
 
 #import "MatchismoGameViewController.h"
 #import "PlayingCard.h"
-#import "CardMatchingGame.h"
+#import "MatchismoGame.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 
-@interface MatchismoCardGameViewController ()
+@interface MatchismoGameViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
 @property (nonatomic) BOOL matchingNumberCanBeChanged;
-
 @end
 
-@implementation MatchismoCardGameViewController
-- (CardMatchingGame *)game
+@implementation MatchismoGameViewController
+
+@synthesize game = _game;
+
+- (instancetype) init
+{
+    self = [super init];
+    return self;
+}
+
+- (MatchismoGame *)game
 {
     if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+        _game = [[MatchismoGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
         _game.numberOfCardsToMatch = 2;
     }
     
-    return _game;
+    return (MatchismoGame *)self.game;
 }
 
 - (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
@@ -55,6 +63,12 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    int i = 0;
+}
+
 - (IBAction)touchCardButton:(UIButton *)sender
 {
     self.matchingNumberCanBeChanged = NO;
@@ -71,6 +85,11 @@
 - (NSString *)titleForCard:(Card *)card
 {
     return card.isChosen ? card.contents : @"";
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card
+{
+    return [UIImage imageNamed:card.isChosen ? @"cardFront" : @"cardBack"];
 }
 
 - (void)updateUI

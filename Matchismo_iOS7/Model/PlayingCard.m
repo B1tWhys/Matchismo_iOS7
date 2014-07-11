@@ -126,4 +126,9 @@
     return (NSUInteger *) ([self.rankStrings count] - 1);
 }
 
+- (void)logCard
+{
+    NSLog(@"%@", self.contents);
+}
+
 @end

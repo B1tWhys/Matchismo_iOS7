@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CardGameViewController.h"
 
-@interface MatchismoCardGameViewController : CardGameViewController
+@interface MatchismoGameViewController : CardGameViewController
 
 @end

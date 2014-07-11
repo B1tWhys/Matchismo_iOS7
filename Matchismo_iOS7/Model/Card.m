@@ -12,13 +12,10 @@
 
 - (int)match:(NSArray *)otherCards {
     int score = 0;
-    
-    for (Card *card in otherCards) {
-        if ([card.contents isEqualToString:self.contents]) {
-            score = 1;
-        }
-    }
+    printf("ERROR: match called in Card");
     return score;
 }
+
+- (void)logCard{}
 
 @end
