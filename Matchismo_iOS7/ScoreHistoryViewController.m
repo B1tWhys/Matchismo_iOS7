@@ -10,7 +10,6 @@
 
 @interface ScoreHistoryViewController ()
 @property (strong, nonatomic) IBOutlet UITextView *historyDisplay;
-
 @end
 
 @implementation ScoreHistoryViewController
@@ -30,9 +29,10 @@
     
     self.historyDisplay.editable = NO;
     NSMutableString *textToDisplay = [[NSMutableString alloc] init];
-    for (NSString *label in self.labelHistoryArray) {
-        [textToDisplay appendString:label];
-        [textToDisplay appendString:[NSString stringWithFormat:@"\n"]];
+    NSString *carriageReturn = [NSString stringWithFormat:@"\n"];
+    for (int i = self.labelHistoryArray.count; i > 0; i--) {
+        [textToDisplay appendString:self.labelHistoryArray[i-1]];
+        [textToDisplay appendString:carriageReturn];
     }
 
     self.historyDisplay.text = (NSString *)textToDisplay;

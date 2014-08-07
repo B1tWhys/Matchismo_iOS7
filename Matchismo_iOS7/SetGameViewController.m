@@ -14,4 +14,7 @@
 
 @implementation SetGameViewController
 
+// TODO: implement this thing! 8/7/14
+// implement by coppying code from SetGameViewController from /Users/david/Documents/Friends/Sky/GitHub/Matchismo/Matchismo.xcodeproj
+// also implement other set related things.
 @end

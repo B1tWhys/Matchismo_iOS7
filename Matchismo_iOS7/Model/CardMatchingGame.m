@@ -40,7 +40,8 @@
     self = [super init];
     
     if (self) {
-        _matchCache = [[NSMutableArray alloc] init];
+        self.matchCache = [[NSMutableArray alloc] init];
+        self.cards = [[NSMutableArray alloc] init];
         for (int i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {
@@ -49,7 +50,6 @@
                 self = nil;
                 break;
             }
-    
         }
     }
     

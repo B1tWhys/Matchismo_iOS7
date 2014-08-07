@@ -34,7 +34,7 @@
         _game.numberOfCardsToMatch = 2;
     }
     
-    return (MatchismoGame *)self.game;
+    return (MatchismoGame *)_game;
 }
 
 - (void)setMatchingNumberCanBeChanged:(BOOL)matchingNumberCanBeChanged
