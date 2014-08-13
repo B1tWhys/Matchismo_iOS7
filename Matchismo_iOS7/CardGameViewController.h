@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventDisplayLabel;
 @property (strong, nonatomic) CardMatchingGame *game;
 
+- (void)updateUI;
 - (void)resetCurrentMatch;
 @end

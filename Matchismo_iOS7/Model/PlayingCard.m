@@ -128,7 +128,7 @@
 
 - (void)logCard
 {
-    NSLog(@"%@", self.contents);
+    NSLog(@"%@ //Logged from PlayingCard", self.contents);
 }
 
 @end

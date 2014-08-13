@@ -19,7 +19,12 @@
 
 static int logCardCount;
 
--(id)init
+- (void)setPlayable:(BOOL)playable
+{
+    _playable = playable;
+}
+
+- (id)init
 {
     self = [super init];
     if (self) {
@@ -39,6 +44,7 @@ static int logCardCount;
         self.shape = shape;
         self.fill = fill;
         self.color = color;
+        self.playable = YES;
     }
     
     return self;
@@ -50,7 +56,7 @@ static int logCardCount;
     NSString *shapeString = @[@"X", @"square", @"circle", @"triangle"][self.shape];
     NSString *colorString = @[@"X", @"red", @"green", @"blue"][self.color];
     NSString *fillString = @[@"X", @"none", @"shaded", @"solid"][self.fill];
-    NSLog(@"%i  %i  %@  %@  %@  ", logCardCount, self.count, colorString, shapeString, fillString);
+    NSLog(@"%i  %i  %@  %@  %@  //Logged from SetCard", logCardCount, self.count, colorString, shapeString, fillString);
 }
 
 @end

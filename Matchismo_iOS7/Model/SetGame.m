@@ -46,7 +46,7 @@
 
 static const int SELECT_COST = 1;
 static const int MATCH_SCORE = 5;
-static const int MATCH_BONUS_MULTIPLIER = 4; // N/A right now
+// static const int MATCH_BONUS_MULTIPLIER = 4; // N/A right now
 static const int MISMATCH_PENALTY = 2;
 
 - (void)selectCardAtIndex:(NSUInteger)index
@@ -69,7 +69,7 @@ static const int MISMATCH_PENALTY = 2;
                 self.totalScore += MATCH_SCORE;
                 self.scoreOnLastSelection = MATCH_SCORE;
                 for (SetCard *selectedCard in self.currentlySelectedCards) {
-                    selectedCard.playable = false;
+                    selectedCard.playable = NO;
                 }
             } else { // there is no match
                 self.totalScore -= MISMATCH_PENALTY;

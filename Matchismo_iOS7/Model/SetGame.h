@@ -9,5 +9,10 @@
 #import "CardMatchingGame.h"
 
 @interface SetGame : CardMatchingGame
-
+- (void)selectCardAtIndex:(NSUInteger)index;
+@property (nonatomic, strong, readonly) NSMutableArray *currentlySelectedCards;
+@property (nonatomic, strong, readonly) NSMutableArray *selectedCardsCache;
+@property (nonatomic, readonly) int scoreOnLastSelection;
+@property (nonatomic, readonly) int flipCount;
+@property (nonatomic, readonly) int totalScore;
 @end

@@ -53,8 +53,6 @@
         }
     }
     
-    /* DEBUGGING NOTE: 7/11/14 - With a breakpoint on the line below, we find that _matchCache is nil and cards is nil, but self is non-nil and count is 30. WHY?
-     */
     return self;
 }
 
@@ -62,8 +60,5 @@
 {
     return (index < [self.cards count]) ? self.cards[index] : nil;
 }
-
-
-
 
 @end

@@ -66,7 +66,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    int i = 0;
+    // int i = 0;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender
