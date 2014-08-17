@@ -9,6 +9,11 @@
 #import "SetGame.h"
 #import "SetCard.h"
 
+@implementation FlipResultsData
+
+@end
+
+
 @interface SetGame()
 @property (nonatomic, readwrite) int scoreOnLastSelection;
 @property (nonatomic, strong, readwrite) NSMutableArray *currentlySelectedCards;
@@ -16,6 +21,7 @@
 @property (nonatomic, readwrite) int totalScore;
 @property (nonatomic, readwrite) NSString *flipResults;
 @property (nonatomic, readwrite) int flipCount;
+@property (nonatomic, strong, readwrite) FlipResultsData *flipResultsData;
 @end
 
 @implementation SetGame
@@ -30,18 +36,28 @@
     return match;
 }
 
+- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+{
+    self = [super initWithCardCount:count usingDeck:deck];
+    
+    if (self) self.currentlySelectedCards = [[NSMutableArray alloc] init];
+    
+    return self;
+}
+
 - (BOOL)isMatch
 {
-    SetCard *card1 = self.currentlySelectedCards[0];
-    SetCard *card2 = self.currentlySelectedCards[1];
-    SetCard *card3 = self.currentlySelectedCards[2];
+    SetCard *card1 = self.flipResultsData.card1 = self.currentlySelectedCards[0];
+    SetCard *card2 = self.flipResultsData.card2 = self.currentlySelectedCards[1];
+    SetCard *card3 = self.flipResultsData.card3 = self.currentlySelectedCards[2];
     
     BOOL numberMatch = [self isMatchOnProperty1: card1.count property2: card2.count property3: card3.count];
     BOOL shapeMatch = [self isMatchOnProperty1: card1.shape property2: card2.shape property3: card3.shape];
     BOOL colorMatch = [self isMatchOnProperty1: card1.color property2: card2.color property3: card3.color];
     BOOL fillMatch = [self isMatchOnProperty1: card1.fill property2: card2.fill property3: card3.fill];
+    self.flipResultsData.isMatch = (numberMatch | shapeMatch | colorMatch | fillMatch);
     
-    return (numberMatch | shapeMatch | colorMatch | fillMatch);
+    return self.flipResultsData.isMatch;
 }
 
 static const int SELECT_COST = 1;
@@ -52,7 +68,7 @@ static const int MISMATCH_PENALTY = 2;
 - (void)selectCardAtIndex:(NSUInteger)index
 {
     SetCard *currentCard = (SetCard *)[self cardAtIndex:index];
-    [currentCard logCard];
+//    [currentCard logCard];
     
     BOOL cardIsValid = [currentCard isPlayable] && ![self.currentlySelectedCards containsObject:currentCard];
     
@@ -66,19 +82,27 @@ static const int MISMATCH_PENALTY = 2;
         if ([self.currentlySelectedCards count] == 3) {
             // compute score
             if ([self isMatch]) {
-                self.totalScore += MATCH_SCORE;
                 self.scoreOnLastSelection = MATCH_SCORE;
                 for (SetCard *selectedCard in self.currentlySelectedCards) {
                     selectedCard.playable = NO;
                 }
-            } else { // there is no match
-                self.totalScore -= MISMATCH_PENALTY;
+                // add this match attempt success to the matchCache
+            } else { // There is no match. In this case, the last card to be selected remains selected and the other cards are set deselected in the UI and removed from currentlySelectedCards.
+
                 self.scoreOnLastSelection = -MISMATCH_PENALTY;
-                // in this case, the last card to be selected remains selected and the other cards are set deselected in the UI and removed from currentlySelectedCards.
+                
+                
             }
             self.selectedCardsCache = (NSMutableArray *) [NSArray arrayWithArray:self.currentlySelectedCards];
             [self.currentlySelectedCards removeAllObjects];
+
+            // add this match attempt to the matchCache
+            [self.matchCache addObject:(self.flipResultsData)];
+            
         } // else do nothing
+        
+        self.totalScore += self.scoreOnLastSelection;
+        
         
     } 	// else do nothing
 }

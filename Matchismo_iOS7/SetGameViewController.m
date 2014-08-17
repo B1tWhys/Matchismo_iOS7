@@ -10,12 +10,14 @@
 #import "SetGame.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
+#import "ScoreHistoryViewController.h"
 #import <CoreImage/CIColor.h>
 #import <CoreImage/CIImage.h>
 
 @interface SetGameViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *setGameFlipResults;
+@property (strong, nonatomic) NSMutableArray *historyCache;
 @end
 
 @implementation SetGameViewController
@@ -38,6 +40,8 @@
 - (void)viewDidLoad
 {
     [self updateUI];
+    
+    self.historyCache = [[NSMutableArray alloc] init];
 	// Do any additional setup after loading the view.
 }
 
@@ -159,13 +163,25 @@
     return threeCardsText;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ScoreHistoryViewController *destinationViewController = segue.destinationViewController;
+    
+    // For each element in self.game.matchCache add a NSAttributedString object to the labelHistoryArray
+    // using renderFlipResults to perform the mapping
+    for (FilpResultsData *flipResult in self.game.matchCache) {
+        <#statements#>
+    }
+    destinationViewController.labelHistoryArray = self.historyCache;
+}
+
 - (void)updateUI
 {
     // count - 0 = undefined, 1-3 are valid values
     // shape - 0 = undefined, 1 = square, 2 = circle, 3 = triangle
     // fill - 0 = undefined, 1 = none, 2 = shaded, 3 = solid
     // color - 0 = undefined, 1 = red, 2 = green, 3 = blue
-        
+
     SetGame *setGame = (SetGame *)self.game;
     
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", setGame.totalScore];
@@ -173,10 +189,10 @@
     // Compute and set the UI state for each cardButton.
     for (UIButton *cardButton in self.cardButtons) {
         SetCard *card = (SetCard *) [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        
+
         NSAttributedString *cardText = [self getAttributedStringFromCard:card ignorePlayablility:false];
         
-        NSLog(@"cardText:%@", [cardText string]);
+//        NSLog(@"cardText:%@", [cardText string]);
         
         [cardButton setAttributedTitle:cardText forState:UIControlStateNormal];
 //        [cardButton setAttributedTitle:cardText forState:UIControlStateSelected];
@@ -184,9 +200,15 @@
         // If the card associated with this cardButton is in the list of currentlySelectedCards,
         // then we'll set the background of the cardButton to illustrate this.
         cardButton.selected = [((SetGame *) self.game).currentlySelectedCards containsObject:card];
-        NSLog(@"buttonTitle:%@", [cardButton.titleLabel.attributedText string]);
+//        NSLog(@"buttonTitle:%@", [cardButton.titleLabel.attributedText string]);
     }
     
+    NSAttributedString *flipResultsText = [self renderFlipResults:setGame];
+    [self.setGameFlipResults setAttributedText:flipResultsText];
+}
+
+- (NSAttributedString *)renderFlipResults:(SetGame *)setGame
+{
     NSMutableAttributedString *flipResultsText = [[NSMutableAttributedString alloc] init];
     
     if (setGame.scoreOnLastSelection == 0) {
@@ -202,9 +224,11 @@
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@" %i point penalty!", -setGame.scoreOnLastSelection]]];
     }
     
-    [self.setGameFlipResults setAttributedText:flipResultsText];
+    // Set font, notice the range is for the whole string
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:11];
+    [flipResultsText addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [flipResultsText length])];
+    
+    return flipResultsText;
 }
-
-
 
 @end

@@ -28,14 +28,35 @@
     [super viewDidLoad];
     
     self.historyDisplay.editable = NO;
+
+    if ([self.labelHistoryArray[0] class] == [NSMutableString class]) {
+        [self updateHistoryDisplayToNSString];
+    } else {
+        [self updateHistoryDisplayToNSAttributedString];
+    }
+}
+
+- (void)updateHistoryDisplayToNSString
+{
     NSMutableString *textToDisplay = [[NSMutableString alloc] init];
     NSString *carriageReturn = [NSString stringWithFormat:@"\n"];
     for (int i = self.labelHistoryArray.count; i > 0; i--) {
         [textToDisplay appendString:self.labelHistoryArray[i-1]];
         [textToDisplay appendString:carriageReturn];
     }
-
+    
     self.historyDisplay.text = (NSString *)textToDisplay;
+}
+
+- (void)updateHistoryDisplayToNSAttributedString
+{
+    NSMutableAttributedString *textToDisplay = [[NSMutableAttributedString alloc] init];
+    NSAttributedString *carriageReturn = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n"] attributes:@{}];
+    for (int i = self.labelHistoryArray.count; i > 0; i--) {
+        [textToDisplay appendAttributedString:self.labelHistoryArray[i-1]];
+        [textToDisplay appendAttributedString:carriageReturn];
+    }
+    self.historyDisplay.attributedText = (NSAttributedString *)textToDisplay;
 }
 
 /*
