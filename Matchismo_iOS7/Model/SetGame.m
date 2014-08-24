@@ -8,11 +8,7 @@
 
 #import "SetGame.h"
 #import "SetCard.h"
-
-@implementation FlipResultsData
-
-@end
-
+#import "FlipResultsData.h"
 
 @interface SetGame()
 @property (nonatomic, readwrite) int scoreOnLastSelection;
@@ -40,7 +36,12 @@
 {
     self = [super initWithCardCount:count usingDeck:deck];
     
-    if (self) self.currentlySelectedCards = [[NSMutableArray alloc] init];
+    if (self)
+    {
+        self.currentlySelectedCards = [[NSMutableArray alloc] init];
+        
+        self.flipResultsData = [[FlipResultsData alloc] init];
+    }
     
     return self;
 }
@@ -96,6 +97,8 @@ static const int MISMATCH_PENALTY = 2;
             self.selectedCardsCache = (NSMutableArray *) [NSArray arrayWithArray:self.currentlySelectedCards];
             [self.currentlySelectedCards removeAllObjects];
 
+            self.flipResultsData.score = self.scoreOnLastSelection;
+            
             // add this match attempt to the matchCache
             [self.matchCache addObject:(self.flipResultsData)];
             

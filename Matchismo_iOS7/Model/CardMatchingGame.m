@@ -18,6 +18,11 @@
 
 @implementation CardMatchingGame
 
+- (void)setMatchCache:(NSMutableArray *)matchCache
+{
+    _matchCache = matchCache;
+}
+
 - (NSString *)generateEventDisplayText
 {
     printf("ERROR: generateEventDisplayText called in CardMatchingGame");

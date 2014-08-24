@@ -9,13 +9,6 @@
 #import "CardMatchingGame.h"
 #import "SetCard.h"
 
-@interface FlipResultsData : NSObject
-@property (nonatomic, strong)SetCard *card1;
-@property (nonatomic, strong) SetCard *card2;
-@property (nonatomic, strong) SetCard *card3;
-@property BOOL isMatch;
-@end
-
 @interface SetGame : CardMatchingGame
 - (void)selectCardAtIndex:(NSUInteger)index;
 @property (nonatomic, strong, readonly) NSMutableArray *currentlySelectedCards;

@@ -10,6 +10,7 @@
 #import "SetGame.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
+#import "FlipResultsData.h"
 #import "ScoreHistoryViewController.h"
 #import <CoreImage/CIColor.h>
 #import <CoreImage/CIImage.h>
@@ -169,10 +170,10 @@
     
     // For each element in self.game.matchCache add a NSAttributedString object to the labelHistoryArray
     // using renderFlipResults to perform the mapping
-    for (FilpResultsData *flipResult in self.game.matchCache) {
-        <#statements#>
+    
+    for (FlipResultsData *flipResult in self.game.matchCache) {
+        [destinationViewController.labelHistoryArray addObject:[self renderFlipResults:flipResult]];
     }
-    destinationViewController.labelHistoryArray = self.historyCache;
 }
 
 - (void)updateUI
@@ -203,11 +204,11 @@
 //        NSLog(@"buttonTitle:%@", [cardButton.titleLabel.attributedText string]);
     }
     
-    NSAttributedString *flipResultsText = [self renderFlipResults:setGame];
+    NSAttributedString *flipResultsText = [self renderFlipResultsFromSetGame:setGame];
     [self.setGameFlipResults setAttributedText:flipResultsText];
 }
 
-- (NSAttributedString *)renderFlipResults:(SetGame *)setGame
+- (NSAttributedString *)renderFlipResultsFromSetGame:(SetGame *)setGame
 {
     NSMutableAttributedString *flipResultsText = [[NSMutableAttributedString alloc] init];
     
@@ -222,6 +223,30 @@
         [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"do not match."]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@" %i point penalty!", -setGame.scoreOnLastSelection]]];
+    }
+    
+    // Set font, notice the range is for the whole string
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:11];
+    [flipResultsText addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [flipResultsText length])];
+    
+    return flipResultsText;
+}
+
+- (NSAttributedString *)renderFlipResults:(FlipResultsData *)flipResult
+{
+    NSMutableAttributedString *flipResultsText = [[NSMutableAttributedString alloc] init];
+    
+    if (flipResult.score == 0) {
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Flip a card."]];
+    } else if (flipResult.score > 0) {
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Matched "]];
+        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@" for "]];
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@"%i points!", flipResult.score]]];
+    } else {
+        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"do not match."]];
+        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@" %i point penalty!", -flipResult.score]]];
     }
     
     // Set font, notice the range is for the whole string
