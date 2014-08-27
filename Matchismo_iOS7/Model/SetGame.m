@@ -100,7 +100,8 @@ static const int MISMATCH_PENALTY = 2;
             self.flipResultsData.score = self.scoreOnLastSelection;
             
             // add this match attempt to the matchCache
-            [self.matchCache addObject:(self.flipResultsData)];
+//            [self.matchCache addObject:(self.flipResultsData)];
+            [self.matchCache addObject:self.flipResultsData copyWithZone];
             
         } // else do nothing
         

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SetCard.h"
 
-@interface FlipResultsData : NSObject
+@interface FlipResultsData : NSObject  <NSCopying>
 @property (nonatomic, strong) SetCard *card1;
 @property (nonatomic, strong) SetCard *card2;
 @property (nonatomic, strong) SetCard *card3;
