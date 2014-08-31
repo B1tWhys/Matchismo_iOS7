@@ -16,6 +16,16 @@
     return score;
 }
 
+- (Card *) deepCopy
+{
+    Card *cardCopy = [[Card alloc] init];
+    cardCopy.contents = self.contents;
+    cardCopy.chosen = self.chosen;
+    cardCopy.matched = self.matched;
+    
+    return cardCopy;
+}
+
 - (void)logCard{}
 
 @end

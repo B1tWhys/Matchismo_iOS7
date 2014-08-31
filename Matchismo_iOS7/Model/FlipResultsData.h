@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "SetCard.h"
 
-@interface FlipResultsData : NSObject  <NSCopying>
+@interface FlipResultsData : NSObject
 @property (nonatomic, strong) SetCard *card1;
 @property (nonatomic, strong) SetCard *card2;
 @property (nonatomic, strong) SetCard *card3;
 @property (nonatomic) int score;
 @property BOOL isMatch;
+
+- (FlipResultsData *) deepCopy;
+
 @end

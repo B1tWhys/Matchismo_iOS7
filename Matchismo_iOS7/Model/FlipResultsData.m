@@ -10,12 +10,12 @@
 
 @implementation FlipResultsData
 
-- (id)copyWithZone: (NSZone *)zone {
+- (FlipResultsData *) deepCopy {
 //    self *frdCopy = [super copyWithZone:zone];
     FlipResultsData *frdCopy = [[FlipResultsData alloc] init];
-    frdCopy.card1 = self.card1;
-    frdCopy.card2 = self.card2;
-    frdCopy.card3 = self.card3;
+    frdCopy.card1 = [self.card1 deepCopy];
+    frdCopy.card2 = [self.card2 deepCopy];
+    frdCopy.card3 = [self.card3 deepCopy];
     frdCopy.isMatch = self.isMatch;
     frdCopy.score = self.score;
     return frdCopy;

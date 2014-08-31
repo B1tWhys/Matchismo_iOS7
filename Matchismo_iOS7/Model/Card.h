@@ -16,4 +16,6 @@
 
 - (int)match:(NSArray *)otherCards;
 - (void)logCard;
+- (Card *) deepCopy;
+
 @end

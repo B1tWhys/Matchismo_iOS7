@@ -19,6 +19,21 @@
 
 static int logCardCount;
 
+- (SetCard *)deepCopy
+{
+    SetCard *setCardCopy = (SetCard *)[[SetCard alloc] init];
+    
+    setCardCopy.contents = self.contents;
+    setCardCopy.chosen = self.chosen;
+    setCardCopy.matched = self.matched;
+    setCardCopy.count = self.count;
+    setCardCopy.shape = self.shape;
+    setCardCopy.fill = self.fill;
+    setCardCopy.color = self.color;
+    
+    return setCardCopy;
+}
+
 - (void)setPlayable:(BOOL)playable
 {
     _playable = playable;
