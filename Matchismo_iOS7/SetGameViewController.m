@@ -18,10 +18,15 @@
 @interface SetGameViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *setGameFlipResults;
-@property (strong, nonatomic) NSMutableArray *historyCache;
+//@property (strong, nonatomic) NSMutableArray *historyCache;
 @end
 
 @implementation SetGameViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    int i = 1;
+}
 
 - (SetGame *) game
 {
@@ -42,7 +47,7 @@
 {
     [self updateUI];
     
-    self.historyCache = [[NSMutableArray alloc] init];
+//    self.historyCache = [[NSMutableArray alloc] init];
 	// Do any additional setup after loading the view.
 }
 

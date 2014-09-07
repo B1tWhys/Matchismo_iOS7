@@ -103,7 +103,6 @@ static const int MISMATCH_PENALTY = 2;
 //            [self.matchCache addObject:(self.flipResultsData)];
             [self.matchCache addObject:[self.flipResultsData deepCopy]];
             int x = 1;
-            
         } // else do nothing
         
         self.totalScore += self.scoreOnLastSelection;
