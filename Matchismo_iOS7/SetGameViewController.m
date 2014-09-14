@@ -154,10 +154,9 @@
     return returnAttributedString;
 }
 
-- (NSAttributedString *)getEnglishListOfTheThreeCards
+- (NSAttributedString *)getEnglishListOfThreeCards:(FlipResultsData *)flipResult
 {
-    SetGame *setGame = (SetGame *) self.game;
-    NSArray *selectedCards = (NSArray *) setGame.selectedCardsCache;
+    NSArray *selectedCards = @[flipResult.card1, flipResult.card2, flipResult.card3];
     NSMutableAttributedString *threeCardsText = [[NSMutableAttributedString alloc] init];
     
     [threeCardsText appendAttributedString:[self getAttributedStringFromCard:selectedCards[0] ignorePlayablility:true]];
@@ -167,6 +166,7 @@
     [threeCardsText appendAttributedString:[self getAttributedStringFromCard:selectedCards[2] ignorePlayablility:true]];
     [threeCardsText appendAttributedString:[self convertStringToNSAttributedString:@" "]];
     return threeCardsText;
+
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -176,8 +176,11 @@
     // For each element in self.game.matchCache add a NSAttributedString object to the labelHistoryArray
     // using renderFlipResults to perform the mapping
     
+    int i = 0;
+    
     for (FlipResultsData *flipResult in self.game.matchCache) {
         [destinationViewController.labelHistoryArray addObject:[self renderFlipResults:flipResult]];
+        i++;
     }
 }
 
@@ -209,33 +212,11 @@
 //        NSLog(@"buttonTitle:%@", [cardButton.titleLabel.attributedText string]);
     }
     
-    NSAttributedString *flipResultsText = [self renderFlipResultsFromSetGame:setGame];
+//    NSAttributedString *flipResultsText = [self renderFlipResultsFromSetGame:setGame];
+    NSAttributedString *flipResultsText = [self renderFlipResults:[self.game.matchCache lastObject]];
     [self.setGameFlipResults setAttributedText:flipResultsText];
 }
 
-- (NSAttributedString *)renderFlipResultsFromSetGame:(SetGame *)setGame
-{
-    NSMutableAttributedString *flipResultsText = [[NSMutableAttributedString alloc] init];
-    
-    if (setGame.scoreOnLastSelection == 0) {
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Flip a card."]];
-    } else if (setGame.scoreOnLastSelection > 0) {
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Matched "]];
-        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@" for "]];
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@"%i points!", setGame.scoreOnLastSelection]]];
-    } else {
-        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"do not match."]];
-        [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@" %i point penalty!", -setGame.scoreOnLastSelection]]];
-    }
-    
-    // Set font, notice the range is for the whole string
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:11];
-    [flipResultsText addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [flipResultsText length])];
-    
-    return flipResultsText;
-}
 
 - (NSAttributedString *)renderFlipResults:(FlipResultsData *)flipResult
 {
@@ -245,11 +226,11 @@
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Flip a card."]];
     } else if (flipResult.score > 0) {
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"Matched "]];
-        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
+        [flipResultsText appendAttributedString:[self getEnglishListOfThreeCards:flipResult]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@" for "]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@"%i points!", flipResult.score]]];
     } else {
-        [flipResultsText appendAttributedString:[self getEnglishListOfTheThreeCards]];
+        [flipResultsText appendAttributedString:[self getEnglishListOfThreeCards:flipResult]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:@"do not match."]];
         [flipResultsText appendAttributedString:[self convertStringToNSAttributedString:[NSString stringWithFormat:@" %i point penalty!", -flipResult.score]]];
     }

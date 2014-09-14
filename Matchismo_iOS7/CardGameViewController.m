@@ -19,12 +19,6 @@
 
 @implementation CardGameViewController
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ScoreHistoryViewController *destinationViewController = segue.destinationViewController;
-    
-    destinationViewController.labelHistoryArray = self.game.matchCache;
-}
-
 - (void)updateUI
 {
     printf("ERROR: updateUI called in class CardGameViewController");

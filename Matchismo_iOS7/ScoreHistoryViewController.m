@@ -53,7 +53,8 @@
     NSMutableAttributedString *textToDisplay = [[NSMutableAttributedString alloc] init];
     NSAttributedString *carriageReturn = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n"] attributes:@{}];
     for (int i = self.labelHistoryArray.count; i > 0; i--) {
-        [textToDisplay appendAttributedString:self.labelHistoryArray[i-1]];
+        self.labelHistoryArray[i-1];
+        [textToDisplay appendAttributedString:(NSAttributedString *)self.labelHistoryArray[i-1]];
         [textToDisplay appendAttributedString:carriageReturn];
     }
     self.historyDisplay.attributedText = (NSAttributedString *)textToDisplay;

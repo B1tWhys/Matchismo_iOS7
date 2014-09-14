@@ -11,6 +11,7 @@
 #import "MatchismoGame.h"
 #import "PlayingCard.h"
 #import "PlayingCardDeck.h"
+#import "ScoreHistoryViewController.h"
 
 @interface MatchismoGameViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *match2Or3Selector;
@@ -27,7 +28,11 @@
     return self;
 }
 
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ScoreHistoryViewController *destinationViewController = segue.destinationViewController;
+    
+    destinationViewController.labelHistoryArray = self.game.matchCache;
+}
 
 - (MatchismoGame *)game
 {
