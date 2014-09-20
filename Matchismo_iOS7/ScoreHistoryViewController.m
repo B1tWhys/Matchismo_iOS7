@@ -52,9 +52,22 @@
 {
     NSMutableAttributedString *textToDisplay = [[NSMutableAttributedString alloc] init];
     NSAttributedString *carriageReturn = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n"] attributes:@{}];
+    NSMutableAttributedString *historyLabelElement;
     for (int i = self.labelHistoryArray.count; i > 0; i--) {
-        self.labelHistoryArray[i-1];
-        [textToDisplay appendAttributedString:(NSAttributedString *)self.labelHistoryArray[i-1]];
+        NSLog(@"|%@|", NSStringFromClass([self.labelHistoryArray[i-1] class]));
+//        if ([[self.labelHistoryArray[i-1] class] isKindOfClass:[NSMutableAttributedString class]]) {
+//            historyLabelElement = self.labelHistoryArray[i-1];
+//        } else {
+//            historyLabelElement = [[NSMutableAttributedString alloc] initWithString:self.labelHistoryArray[i-1] attributes:@{}];
+//        }
+
+        if ([[self.labelHistoryArray[i-1] class] isMemberOfClass:[NSString class]]) {
+            historyLabelElement = [[NSMutableAttributedString alloc] initWithString:self.labelHistoryArray[i-1] attributes:@{}];
+        } else {
+            historyLabelElement = self.labelHistoryArray[i-1];
+        }
+
+        [textToDisplay appendAttributedString: historyLabelElement];
         [textToDisplay appendAttributedString:carriageReturn];
     }
     self.historyDisplay.attributedText = (NSAttributedString *)textToDisplay;
