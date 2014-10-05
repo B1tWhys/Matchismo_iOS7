@@ -7,6 +7,7 @@
 //
 
 #import "ScoreHistoryViewController.h"
+#import "SetGameViewController.h"
 
 @interface ScoreHistoryViewController ()
 @property (strong, nonatomic) IBOutlet UITextView *historyDisplay;
@@ -36,7 +37,7 @@
     }
 }
 
-- (void)updateHistoryDisplayToNSString
+- (void)updateHistoryDisplayToNSString // NEVER CALLED?
 {
     NSMutableString *textToDisplay = [[NSMutableString alloc] init];
     NSString *carriageReturn = [NSString stringWithFormat:@"\n"];
@@ -44,7 +45,9 @@
         [textToDisplay appendString:self.labelHistoryArray[i-1]];
         [textToDisplay appendString:carriageReturn];
     }
-    
+
+    NSLog(@"3. %@", self.labelHistoryArray[0]);
+
     self.historyDisplay.text = (NSString *)textToDisplay;
 }
 
@@ -61,12 +64,44 @@
 //            historyLabelElement = [[NSMutableAttributedString alloc] initWithString:self.labelHistoryArray[i-1] attributes:@{}];
 //        }
 
-        if ([[self.labelHistoryArray[i-1] class] isMemberOfClass:[NSString class]]) {
+        NSString *constString = @"abc";
+        id stringClass = [constString class];
+        
+        NSLog(@"[self.labelHistoryArray[0] class]: %@", [self.labelHistoryArray[0] class]);
+        NSLog(@"[NSMutableAttributedString class]: %@", [NSString class]);
+        NSLog(@"stringClass: %@", stringClass);
+        
+// Note:
+//    Matchismo - crashed on branch 2
+//    2014-10-05 16:47:31.647 Matchismo_iOS7[10971:60b] [self.labelHistoryArray[0] class]: __NSCFString
+//    2014-10-05 16:47:31.647 Matchismo_iOS7[10971:60b] [NSMutableAttributedString class]: NSMutableAttributedString
+//    
+//    Set - success on branch 2
+//    2014-10-05 16:45:32.899 Matchismo_iOS7[10971:60b] [self.labelHistoryArray[0] class]: NSConcreteMutableAttributedString
+//    2014-10-05 16:45:32.899 Matchismo_iOS7[10971:60b] [NSMutableAttributedString class]: NSMutableAttributedString
+        
+
+        
+//        if ([[self.labelHistoryArray[0] class] isKindOfClass:stringClass]) { // works for Set Game
+        if ([stringClass isKindOfClass:[self.labelHistoryArray[0] class]]) { // works for Set Game
             historyLabelElement = [[NSMutableAttributedString alloc] initWithString:self.labelHistoryArray[i-1] attributes:@{}];
-        } else {
-            historyLabelElement = self.labelHistoryArray[i-1];
+            NSLog(@"1. %@", historyLabelElement);
+        } else { // for Matchismo game
+            historyLabelElement = (NSMutableAttributedString *)self.labelHistoryArray[i-1]; // works for Matchismo
+            NSLog(@"2. %@", historyLabelElement);
         }
 
+        
+//        id testVar = [self nextResponder];
+//        
+//        if (self.nextResponder == [SetGameViewController class]) { // works for Set Game
+//            historyLabelElement = [[NSMutableAttributedString alloc] initWithString:self.labelHistoryArray[i-1] attributes:@{}];
+//            NSLog(@"1. %@", historyLabelElement);
+//        } else { // for Matchismo game
+//            historyLabelElement = (NSMutableAttributedString *)self.labelHistoryArray[i-1]; // works for Matchismo
+//            NSLog(@"2. %@", historyLabelElement);
+//        }
+        
         [textToDisplay appendAttributedString: historyLabelElement];
         [textToDisplay appendAttributedString:carriageReturn];
     }
