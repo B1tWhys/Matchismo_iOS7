@@ -23,11 +23,6 @@
 
 @implementation SetGameViewController
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    int i = 1;
-}
-
 - (SetGame *) game
 {
     if (!super.game) {
@@ -40,6 +35,12 @@
 - (IBAction)setCard:(UIButton *)sender //called when the user selects a card
 {
     [(SetGame *) self.game selectCardAtIndex: [self.cardButtons indexOfObject:sender]];
+    [self updateUI];
+}
+
+- (IBAction)deal:(id)sender
+{
+    self.game = nil;
     [self updateUI];
 }
 

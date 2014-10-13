@@ -24,6 +24,8 @@
     printf("ERROR: updateUI called in class CardGameViewController");
 }
 
+- (void)deal:(id)sender {}
+
 - (void)resetCurrentMatch
 {
     self.game.currentMatch = [[NSArray alloc] init];

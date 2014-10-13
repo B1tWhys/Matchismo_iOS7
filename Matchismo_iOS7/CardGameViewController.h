@@ -18,4 +18,5 @@
 
 - (void)updateUI;
 - (void)resetCurrentMatch;
+- (IBAction)deal:(id)sender;
 @end
